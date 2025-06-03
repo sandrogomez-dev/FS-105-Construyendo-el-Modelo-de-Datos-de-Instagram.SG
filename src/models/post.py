@@ -1,0 +1,22 @@
+from src.database.db import db
+from datetime import datetime
+
+
+class Post(db.Model):  # Hereda de db.Model
+    __tablename__ = "posts"
+
+    PostID = db.Column(db.Integer, primary_key=True, index=True)
+    UserID = db.Column(db.Integer, db.ForeignKey(
+        "users.UserID"), nullable=False)
+    ImageURL = db.Column(db.String(255), nullable=False)
+    Caption = db.Column(db.String(500), nullable=True)
+    CreatedAt = db.Column(db.DateTime, default=datetime.utcnow)
+
+    author = db.relationship("User", back_populates="posts")
+    comments = db.relationship(
+        "Comment", back_populates="post", cascade="all, delete-orphan")
+    likes = db.relationship("Like", back_populates="post",
+                            cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Post(PostID={self.PostID}, UserID={self.UserID})>"
