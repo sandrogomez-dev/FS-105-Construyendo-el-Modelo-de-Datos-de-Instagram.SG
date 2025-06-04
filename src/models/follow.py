@@ -5,23 +5,23 @@ from datetime import datetime
 class Follow(db.Model):  # Hereda de db.Model
     __tablename__ = "follows"
 
-    FollowID = db.Column(db.Integer, primary_key=True, index=True)
-    FollowerUserID = db.Column(
-        db.Integer, db.ForeignKey("users.UserID"), nullable=False)
-    FollowingUserID = db.Column(
-        db.Integer, db.ForeignKey("users.UserID"), nullable=False)
-    CreatedAt = db.Column(db.DateTime, default=datetime.utcnow)
+    follow_id = db.Column(db.Integer, primary_key=True, index=True)
+    follower_user_id = db.Column(
+        db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    following_user_id = db.Column(
+        db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     follower = db.relationship(
         "User",
-        foreign_keys=[FollowerUserID],
+        foreign_keys=[follower_user_id],
         back_populates="following"
     )
     followed = db.relationship(
         "User",
-        foreign_keys=[FollowingUserID],
+        foreign_keys=[following_user_id],
         back_populates="followers"
     )
 
     def __repr__(self):
-        return f"<Follow(FollowID={self.FollowID}, FollowerUserID={self.FollowerUserID}, FollowingUserID={self.FollowingUserID})>"
+        return f"<Follow(follow_id={self.follow_id}, follower_user_id={self.follower_user_id}, following_user_id={self.following_user_id})>"

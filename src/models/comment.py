@@ -5,16 +5,16 @@ from datetime import datetime
 class Comment(db.Model):  
     __tablename__ = "comments"
 
-    CommentID = db.Column(db.Integer, primary_key=True, index=True)
-    PostID = db.Column(db.Integer, db.ForeignKey(
-        "posts.PostID"), nullable=False)
-    UserID = db.Column(db.Integer, db.ForeignKey(
-        "users.UserID"), nullable=False)
-    Content = db.Column(db.String(500), nullable=False)
-    CreatedAt = db.Column(db.DateTime, default=datetime.utcnow)
+    comment_id = db.Column(db.Integer, primary_key=True, index=True)
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        "posts.post_id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        "users.user_id"), nullable=False)
+    content = db.Column(db.String(500), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     post = db.relationship("Post", back_populates="comments")
     author = db.relationship("User", back_populates="comments")
 
     def __repr__(self):
-        return f"<Comment(CommentID={self.CommentID}, UserID={self.UserID}, PostID={self.PostID})>"
+        return f"<Comment(comment_id={self.comment_id}, user_id={self.user_id}, post_id={self.post_id})>"

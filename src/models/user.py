@@ -5,12 +5,12 @@ from datetime import datetime
 class User(db.Model):  
     __tablename__ = "users"
 
-    UserID = db.Column(db.Integer, primary_key=True, index=True)
-    Username = db.Column(db.String(80), unique=True,
+    user_id = db.Column(db.Integer, primary_key=True, index=True)
+    username = db.Column(db.String(80), unique=True,
                          index=True, nullable=False)
-    Email = db.Column(db.String(120), unique=True, nullable=False)
-    PasswordHash = db.Column(db.String(255), nullable=False)
-    CreatedAt = db.Column(db.DateTime, default=datetime.utcnow)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     
     posts = db.relationship(
@@ -22,16 +22,16 @@ class User(db.Model):
 
     following = db.relationship(
         "Follow",
-        foreign_keys="[Follow.FollowerUserID]",
+        foreign_keys="[Follow.follower_user_id]",
         back_populates="follower",
         cascade="all, delete-orphan"
     )
     followers = db.relationship(
         "Follow",
-        foreign_keys="[Follow.FollowingUserID]",
+        foreign_keys="[Follow.following_user_id]",
         back_populates="followed",
         cascade="all, delete-orphan"
     )
 
     def __repr__(self):
-        return f"<User(UserID={self.UserID}, Username='{self.Username}')>"
+        return f"<User(user_id={self.user_id}, username='{self.username}')>"
