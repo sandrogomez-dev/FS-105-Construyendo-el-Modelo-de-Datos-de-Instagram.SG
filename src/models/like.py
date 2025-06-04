@@ -2,7 +2,7 @@ from database.db import db
 from datetime import datetime
 
 
-class Like(db.Model):  # Hereda de db.Model
+class Like(db.Model):  
     __tablename__ = "likes"
 
     LikeID = db.Column(db.Integer, primary_key=True, index=True)

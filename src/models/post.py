@@ -2,7 +2,7 @@ from database.db import db
 from datetime import datetime
 
 
-class Post(db.Model):  # Hereda de db.Model
+class Post(db.Model):  
     __tablename__ = "posts"
 
     PostID = db.Column(db.Integer, primary_key=True, index=True)

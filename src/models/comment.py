@@ -2,7 +2,7 @@ from database.db import db
 from datetime import datetime
 
 
-class Comment(db.Model):  # Hereda de db.Model
+class Comment(db.Model):  
     __tablename__ = "comments"
 
     CommentID = db.Column(db.Integer, primary_key=True, index=True)
